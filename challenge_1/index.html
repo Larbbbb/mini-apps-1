@@ -1,2 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="app.js"></script>
+    <title>Tic Tac Toe</title>
+  </head>
+  <body>
+    <div style="font-size: 28pt">Tic Tac Toe</div>
+    <div>
+      <table id="table">
+        <tr>
+          <td class="r1 c1 d1" onClick="clickedSquareHandler(event)"></td>
+          <td class="r1 c2" onClick="clickedSquareHandler(event)"></td>
+          <td class="r1 c3 d2" onClick="clickedSquareHandler(event)"></td>
+        </tr>
+        <tr>
+          <td class="r2 c1" onClick="clickedSquareHandler(event)"></td>
+          <td class="r2 c2 d1 d2" onClick="clickedSquareHandler(event)"></td>
+          <td class="r2 c3" onClick="clickedSquareHandler(event)"></td>
+        </tr>
+        <tr>
+          <td class="r3 c1 d2" onClick="clickedSquareHandler(event)"></td>
+          <td class="r3 c2" onClick="clickedSquareHandler(event)"></td>
+          <td class="r3 c3 d1" onClick="clickedSquareHandler(event)"></td>
+        </tr>
+      </table>
+    </div>
+    <div>
+      <button style="font-size: 30pt" onClick="resetGame()">Reset Game</button>
+    </div>
+    <div>
+      <table id="wins">
+        <tr><th colspan="2">Wins</th></tr>
+        <tr>
+          <th class="xName">X</th>
+          <th class="oName">O</th>
+        </tr>
+        <tr>
+          <th class="xWins">0</th>
+          <th class="oWins">0</th>
+        </tr>
+      </table>
+    </div>
+    <script>
+      document.getElementsByClassName('xName')[0].innerHTML = window.prompt('Player 1 Name:') + ' (X)';
+      document.getElementsByClassName('oName')[0].innerHTML = window.prompt('Player 2 Name:') + ' (O)' ;
+    </script>
+    <style type="text/css">
+      div {
+        padding-bottom: 20pt;
+      }
 
+      #table, #wins {
+        border: 1px solid black;
+      }
+
+      #table td {
+        border: 1px solid black;
+        font-size: 65pt;
+        height: 100px;
+        text-align: center;
+        width: 100px;
+      }
+
+      #wins th {
+        border: 1px solid black;
+        font-size: 20pt;
+        font-weight: normal;
+        height: 40px;
+        text-align: center;
+        width: 153px;
+      }
+
+    </style>
+  </body>
+</html>
 
