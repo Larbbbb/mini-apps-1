@@ -59,6 +59,9 @@ server.post('/', (req, res) => {
 
 });
 
+server.get('/csv', (req, res) => {
+  res.status(200).sendFile(path.join(__dirname, 'output/output.csv'));
+});
 
 const port = 9000;
 server.listen(port, () => {

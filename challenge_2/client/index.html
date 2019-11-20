@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <script src="app.js"></script>
     <title>CSV Report Generator</title>
   </head>
   <body>
@@ -9,6 +10,7 @@
     <form action="/" method="POST" target="_blank">
       <textarea id="jsonInput" name="jsonInput" rows="5" cols="50" placeholder="Input JSON object here..." style="resize: none"></textarea>
       <p><button>Submit</button></p>
+      <p><a href="/csv" download="output.csv">Download CSV Here</a></p>
     </form>
   </body>
 </html>
