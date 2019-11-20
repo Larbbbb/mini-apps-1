@@ -12,7 +12,8 @@ server.use(express.static(path.join(__dirname, 'client/')));
 
 server.post('/', (req, res) => {
 
-  var input = JSON.parse(req.body.jsonInput);
+  console.log(req.body, (typeof req.body));
+  var input = req.body;
   var string = "";
 
   var convert = (object) => {
@@ -34,7 +35,7 @@ server.post('/', (req, res) => {
     }
     string += (line.join() + '\n');
 
-    if (childrenKey.length !== 0) {
+    if (childrenKey !== undefined && object[childrenKey].length !== 0) {
       object[childrenKey].forEach(child => {
         convert(child, string);
       });
@@ -62,6 +63,7 @@ server.post('/', (req, res) => {
 server.get('/csv', (req, res) => {
   res.status(200).sendFile(path.join(__dirname, 'output/output.csv'));
 });
+
 
 const port = 9000;
 server.listen(port, () => {

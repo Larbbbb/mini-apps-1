@@ -2,15 +2,17 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <script src="app.js"></script>
     <title>CSV Report Generator</title>
   </head>
   <body>
     <p>CSV Report Generator</p>
-    <form action="/" method="POST" target="_blank">
-      <textarea id="jsonInput" name="jsonInput" rows="5" cols="50" placeholder="Input JSON object here..." style="resize: none"></textarea>
-      <p><button>Submit</button></p>
-      <p><a href="/csv" download="output.csv">Download CSV Here</a></p>
+    <form>
+      <textarea id="textInput" name="textInput" rows="5" cols="50" placeholder="Input JSON object here..." style="resize: none"></textarea>
+      <p>Or upload file:</p>
+      <p><input id="fileInput" name="fileInput" type="file"></input></p>
+      <p><button id="submit">Submit</button></p>
     </form>
+    <p><a href="/csv" download="output.csv">Download CSV Here</a></p>
+    <script src="app.js"></script>
   </body>
 </html>
