@@ -24,14 +24,6 @@ server.post('/info', (req, res) => {
         entry[key] = fields[key];
     }
     entry.save();
-    res.status(200).send(`Updated user: ${fields.user}`);
-  });
-});
-
-server.put('/stuff', (req, res) => {
-  var fields = req.body;
-  
-  Users.findOne({ _id: fields.user }, function (err, entry) {
     res.status(200).send(entry);
   });
 });

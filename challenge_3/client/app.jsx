@@ -29,31 +29,15 @@ class App extends React.Component {
         page: currentPage + 1
       };
 
-      if (currentPage === 1 || currentPage === 2) {
+      if (currentPage > 0) {
         $.ajax({
           url: '/info',
           type: 'POST',
           data: newInfo,
-          success: (update) => { console.log(update); this.setState(newState);}
-        });
-      }
-      if (currentPage === 3) {
-        $.ajax({
-          url: '/info',
-          type: 'POST',
-          data: newInfo,
-          success: (update) => {
-            console.log(update);
-            $.ajax({
-              url: '/stuff',
-              type: 'PUT',
-              data: newInfo,
-              success: (entry) => { 
-                console.log(entry);   
-                newState.info = entry;
-                this.setState(newState);
-              }
-            });
+          success: (entry) => {
+            console.log(entry);
+            newState.info = entry;
+            this.setState(newState);
           }
         });
       }
