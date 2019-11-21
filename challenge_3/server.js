@@ -19,17 +19,21 @@ server.post('/checkout', (req, res) => {
 server.post('/info', (req, res) => {
   var fields = req.body;
 
-  Users.findOne({ _id: fields.user }, function (err, doc){
+  Users.findOne({ _id: fields.user }, function (err, entry) {
     for (var key in fields) {
-        doc[key] = fields[key];
+        entry[key] = fields[key];
     }
-    doc.save();
+    entry.save();
     res.status(200).send(`Updated user: ${fields.user}`);
   });
 });
 
-server.get('/info', (req, res) => {
-
+server.put('/stuff', (req, res) => {
+  var fields = req.body;
+  
+  Users.findOne({ _id: fields.user }, function (err, entry) {
+    res.status(200).send(entry);
+  });
 });
 
 var Users = mongoose.model('Users', new mongoose.Schema({

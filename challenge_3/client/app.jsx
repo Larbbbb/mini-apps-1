@@ -4,26 +4,8 @@ class App extends React.Component {
 
     this.state = {
       page: 0,
-      account: {
-        name: '',
-        email: '',
-        password: '',
-        phoneNumber: ''
-      },
-      address: {
-        line1: '',
-        line2: '',
-        city: '',
-        state: '',
-        zip: ''
-      },
-      creditCard: {
-        cardNumber: '',
-        expiry: '',
-        cvv: '',
-        billingZip: ''
-      },
-      user: ''
+      user: '',
+      info: {}
     };
 
     this.nextPage = this.nextPage.bind(this);
@@ -47,35 +29,34 @@ class App extends React.Component {
         page: currentPage + 1
       };
 
-      if (currentPage === 1) {
+      if (currentPage === 1 || currentPage === 2) {
         $.ajax({
           url: '/info',
           type: 'POST',
           data: newInfo,
-          success: (update) => { console.log(update); }
+          success: (update) => { console.log(update); this.setState(newState);}
         });
-        newState.account = newInfo;
-      }
-      if (currentPage === 2) {
-        $.ajax({
-          url: '/info',
-          type: 'POST',
-          data: newInfo,
-          success: (update) => { console.log(update); }
-        });
-        newState.address = newInfo;
       }
       if (currentPage === 3) {
         $.ajax({
           url: '/info',
           type: 'POST',
           data: newInfo,
-          success: (update) => { console.log(update); }
+          success: (update) => {
+            console.log(update);
+            $.ajax({
+              url: '/stuff',
+              type: 'PUT',
+              data: newInfo,
+              success: (entry) => { 
+                console.log(entry);   
+                newState.info = entry;
+                this.setState(newState);
+              }
+            });
+          }
         });
-        newState.creditCard = newInfo;
       }
-
-      this.setState(newState);
 
     } else {
       $.ajax({
@@ -98,7 +79,7 @@ class App extends React.Component {
       if (this.state.page === 1) return <F1 next={this.nextPage} />;
       if (this.state.page === 2) return <F2 next={this.nextPage} />;
       if (this.state.page === 3) return <F3 next={this.nextPage} />;
-      if (this.state.page === 4) return <Summary purchase={this.purchase} info={this.state}/>;
+      if (this.state.page === 4) return <Summary purchase={this.purchase} info={this.state.info}/>;
   }
 }
 
@@ -178,29 +159,29 @@ let Summary = (props) => {
       <table>
         <thead><tr><th scope="col" colSpan="2">Account Info</th></tr></thead>
         <tbody>
-          <tr><th scope="row">Name</th><td>{props.info.account.name}</td></tr>
-          <tr><th scope="row">Email</th><td>{props.info.account.email}</td></tr>
-          <tr><th scope="row">Password</th><td>{props.info.account.password}</td></tr>
-          <tr><th scope="row">Phone #</th><td>{props.info.account.phoneNumber}</td></tr>
+          <tr><th scope="row">Name</th><td>{props.info.name}</td></tr>
+          <tr><th scope="row">Email</th><td>{props.info.email}</td></tr>
+          <tr><th scope="row">Password</th><td>{props.info.password}</td></tr>
+          <tr><th scope="row">Phone #</th><td>{props.info.phoneNumber}</td></tr>
         </tbody>
       </table>
       <table>
         <thead><tr><th scope="col" colSpan="2">Shipping Address</th></tr></thead>
         <tbody>
-          <tr><th scope="row">Line 1</th><td>{props.info.address.line1}</td></tr>
-          <tr><th scope="row">Line 2</th><td>{props.info.address.line2}</td></tr>
-          <tr><th scope="row">City</th><td>{props.info.address.city}</td></tr>
-          <tr><th scope="row">State</th><td>{props.info.address.state}</td></tr>
-          <tr><th scope="row">Zip</th><td>{props.info.address.zip}</td></tr>
+          <tr><th scope="row">Line 1</th><td>{props.info.line1}</td></tr>
+          <tr><th scope="row">Line 2</th><td>{props.info.line2}</td></tr>
+          <tr><th scope="row">City</th><td>{props.info.city}</td></tr>
+          <tr><th scope="row">State</th><td>{props.info.state}</td></tr>
+          <tr><th scope="row">Zip</th><td>{props.info.zip}</td></tr>
         </tbody>
       </table>
       <table>
         <thead><tr><th scope="col" colSpan="2">Credit Card</th></tr></thead>
         <tbody>
-          <tr><th scope="row">Card #</th><td>{props.info.creditCard.cardNumber}</td></tr>
-          <tr><th scope="row">Expiry</th><td>{props.info.creditCard.expiry}</td></tr>
-          <tr><th scope="row">CVV</th><td>{props.info.creditCard.cvv}</td></tr>
-          <tr><th scope="row">Billing Zip</th><td>{props.info.creditCard.billingZip}</td></tr>
+          <tr><th scope="row">Card #</th><td>{props.info.cardNumber}</td></tr>
+          <tr><th scope="row">Expiry</th><td>{props.info.expiry}</td></tr>
+          <tr><th scope="row">CVV</th><td>{props.info.cvv}</td></tr>
+          <tr><th scope="row">Billing Zip</th><td>{props.info.billingZip}</td></tr>
         </tbody>
       </table>
       <p></p>
