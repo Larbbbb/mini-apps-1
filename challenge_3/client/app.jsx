@@ -22,7 +22,8 @@ class App extends React.Component {
         expiry: '',
         cvv: '',
         billingZip: ''
-      }
+      },
+      user: ''
     };
 
     this.nextPage = this.nextPage.bind(this);
@@ -31,31 +32,60 @@ class App extends React.Component {
 
   nextPage() {
     var currentPage = this.state.page;
+
     if (document.getElementById('myForm') !== null) {
-      var cool = document.getElementById('myForm').elements;
+      var formInputs = document.getElementById('myForm').elements;
 
       var newInfo = {}
-      Array.from(cool).forEach((input) => {
+      Array.from(formInputs).forEach((input) => {
         newInfo[input.name] = input.value;
       });
+
+      newInfo.user = this.state.user;
 
       var newState = {
         page: currentPage + 1
       };
+
       if (currentPage === 1) {
+        $.ajax({
+          url: '/info',
+          type: 'POST',
+          data: newInfo,
+          success: (update) => { console.log(update); }
+        });
         newState.account = newInfo;
       }
       if (currentPage === 2) {
+        $.ajax({
+          url: '/info',
+          type: 'POST',
+          data: newInfo,
+          success: (update) => { console.log(update); }
+        });
         newState.address = newInfo;
       }
       if (currentPage === 3) {
+        $.ajax({
+          url: '/info',
+          type: 'POST',
+          data: newInfo,
+          success: (update) => { console.log(update); }
+        });
         newState.creditCard = newInfo;
       }
 
       this.setState(newState);
 
     } else {
-      this.setState({page: currentPage + 1});
+      $.ajax({
+        url: '/checkout',
+        type: 'POST',
+        success: (response) => {
+          console.log('New user created:', response);
+          this.setState({page: currentPage + 1, user: response});
+        }
+      });
     }
   }
 
