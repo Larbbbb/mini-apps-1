@@ -1,0 +1,18 @@
+td {
+  border: 1px solid black;
+  height: 20px;
+  text-align: center;
+  width: 20px;
+}
+
+th:hover {
+  background: green;
+}
+
+.Red {
+  background-color: red;
+}
+
+.Black {
+  background-color: black;
+}
